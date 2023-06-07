@@ -48,8 +48,8 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <p className="text-white text-sm mb-5">Help</p>
-      <p className="text-white text-sm">Contact Us</p>
+      <button className="text-white text-sm mb-5">Help</button>
+      <button className="text-white text-sm">Contact Us</button>
     </nav>
   );
 }
