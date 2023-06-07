@@ -16,7 +16,9 @@ module.exports = {
         tCardBg4: "#DEE0EF",
         subTitle:"#858585",
         meetScheduleTitle:"#666666",
-        meetScheduleSubTitle:'#999999'
+        meetScheduleSubTitle:'#999999',
+        linkText:"#346BD4",
+        emailPlaceholder:"#f5f5f5"
       },
     },
     plugins: [],
