@@ -10,7 +10,7 @@ function Navbar() {
     {
       title: "Dashboard",
       iconPath: "assets/icons/dashboard-icon.svg",
-      path: "/",
+      path: "/dashboard",
     },
     {
       title: "Transactions",
@@ -32,8 +32,9 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-black rounded-[30px] py-[60px] pl-[50px] flex flex-col items-start grow-1">
-      <p className="text-white font-bold text-4xl mb-[60px] w-72">Board.</p>
+    <nav className="bg-black w-[17.5rem] rounded-[1.875rem] py-[3.75rem] pl-[3.125rem] flex flex-col items-start">
+      <p className="text-white font-bold text-4xl mb-[3.75rem] hidden lg:block">Board.</p>
+      <p className="text-white font-bold text-4xl mb-[3.75rem] block lg:hidden">B</p>
       <div className="flex-1">
         {navBarItems.map(({ title, iconPath, path }) => (
           <Link
@@ -48,8 +49,8 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <button className="text-white text-sm mb-5">Help</button>
-      <button className="text-white text-sm">Contact Us</button>
+      <button className="text-white text-sm mb-5 sm:hidden lg:block">Help</button>
+      <button className="text-white text-sm sm:hidden lg:block">Contact Us</button>
     </nav>
   );
 }

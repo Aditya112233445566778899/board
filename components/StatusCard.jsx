@@ -1,12 +1,12 @@
 import { memo } from "react";
 
-import Image from "next/image"
+import Image from "next/image";
 
 import cx from "classnames";
 
 function StatusCard({ bgColor, iconName, title, value }) {
   return (
-    <div className={cx("w-56 py-5 px-6 rounded-[20px]", bgColor)}>
+    <div className={cx("lg:w-[13.8125rem] md:w-full xl:flex-1 py-5 px-6 rounded-[1.25rem]", bgColor)}>
       <div className="flex justify-end">
         <Image
           src={"assets/icons/" + iconName}

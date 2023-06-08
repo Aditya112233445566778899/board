@@ -1,188 +1,99 @@
-import Image from "next/image";
+"use client";
+import { signIn, useSession } from "next-auth/react";
 
+import { useRouter } from "next/navigation";
+
+import Button from "@/components/Button";
 import Input from "@/components/Input";
-import Navbar from "@/components/Navbar";
-import PieChart from "@/components/PieChart";
-import LineChart from "@/components/LineChart";
-import StatusCard from "@/components/StatusCard";
-import ScheduleCard from "@/components/ScheduleCard";
+import { useEffect, useState } from "react";
 
-const scheduleData = [
-  {
-    borderColor: "border-[#9BDD7C]",
-    title: "Meeting with suppliers from Kuta Bali",
-    time: "14.00-15.00",
-    description: "at Sunset Road, Kuta, Bali",
-  },
-  {
-    borderColor: "border-[#6972C3]",
-    title: "Check operation at Giga Factory 1",
-    time: "18.00-20.00",
-    description: "at Central Jakarta",
-  },
-];
+function page() {
+  const route = useRouter();
 
-const statusCards = [
-  {
-    bgColor: "bg-tCardBg",
-    iconName: "card-icon.svg",
-    title: "Total Revenues",
-    value: "$2,129,430",
-  },
-  {
-    bgColor: "bg-tCardBg2",
-    iconName: "transaction-icon.svg",
-    title: "Total Transactions",
-    value: "1,520",
-  },
-  {
-    bgColor: "bg-tCardBg3",
-    iconName: "thumbs-up-icon.svg",
-    title: "Total Likes",
-    value: "9,721",
-  },
-  {
-    bgColor: "bg-tCardBg4",
-    iconName: "users-icon.svg",
-    title: "Total Users",
-    value: "892",
-  },
-];
+  const { data: session } = useSession();
 
-export default function Home() {
-  const renderPieChat = () => (
-    <div className="bg-white rounded-[20px] py-8 px-10 w-[480px]">
-      <div className="flex w-full items-center mb-5">
-        <p className="text-black font-bold text-lg flex-1">Top products</p>
-        <button className="text-subTitle text-xs flex items-center gap-2">
-          May - June 2021
-          <Image
-            alt="icon"
-            src="assets/icons/right-cap-icon.svg"
-            width={5}
-            height={5}
-            className="rotate-90"
-          />
-        </button>
-      </div>
-      <PieChart />
-    </div>
-  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const renderTodaySchedule = () => (
-    <div className="bg-white rounded-[20px] py-8 px-10 w-[480px]">
-      <div className="flex items-center">
-        <p className="text-black font-bold text-lg flex-1">Today’s schedule</p>
-        <button className="text-subTitle text-xs flex items-center gap-2">
-          See All
-          <Image
-            alt="icon"
-            src="assets/icons/right-cap-icon.svg"
-            width={5}
-            height={5}
-          />
-        </button>
-      </div>
-      <div className="flex flex-col gap-3 mt-6">
-        {scheduleData.map((item) => (
-          <ScheduleCard props={item} />
-        ))}
-      </div>
-    </div>
-  );
+  const handleEmail = (e) => setEmail(e.target.value);
 
-  const renderRightSideHeader = () => (
-    <div className="flex items-center mb-10">
-      <p className="flex-1 font-bold text-black text-xl">Dashboard</p>
+  const handlePassword = (e) => setPassword(e.target.value);
+
+  const handleNavigate = () => route.push("/dashboard");
+
+  const renderEmailAndPasswordIp = () => (
+    <div className="bg-white p-[1.875rem] rounded-[0.625rem] flex flex-col gap-5 mb-5 mt-[1.5625rem] font-lato">
       <Input
-        placeholder="Search..."
-        className="text-black bg-white"
-        type="text"
-        iconName="search-icon.svg"
-        wrapperClassName="bg-white py-1"
+        labelText="Email address"
+        labelClassName="text-black text-base mb-[0.625rem]"
+        placeholder="Enter your email address"
+        className="text-black bg-emailPlaceholder"
+        value={email}
+        onChange={handleEmail}
+        type="email"
+        wrapperClassName="bg-emailPlaceholder pt-[0.625rem] pb-[0.6875rem] w-[20.3125rem]"
       />
-      <Image
-        src="assets/icons/bell-icon.svg"
-        alt="icon"
-        width={20}
-        height={20}
-        className="mx-5"
+      <Input
+        labelText="Password"
+        labelClassName="text-black text-base mb-[0.625rem]"
+        placeholder="Enter your password"
+        className="text-black bg-emailPlaceholder"
+        type="password"
+        onChange={handlePassword}
+        value={password}
+        wrapperClassName="bg-emailPlaceholder pt-[0.625rem] pb-[0.6875rem]"
       />
-      <Image
-        src="http://3.bp.blogspot.com/-As-olkkh0no/T1RWk2I53HI/AAAAAAAAQsI/vSU73goD6Jo/s1600/BEN10+18.jpg"
-        alt="icon"
-        width={30}
-        height={30}
-        className="rounded-full aspect-square object-cover"
+      <p className="text-linkText text-base">Forgot password?</p>
+      <Button
+        title="Sign In"
+        disabled={!password.length || !email.length}
+        className="bg-black py-[0.5625rem] rounded-[0.625rem] text-white font-bold text-base justify-center w-full font-montserrat disabled:bg-slate-500 hover:bg-slate-500"
+        onClick={handleNavigate}
       />
-    </div>
-  );
-
-  const renderRightSideCard = () => (
-    <div className="flex items-center justify-between">
-      {statusCards.map(({ bgColor, iconName, title, value }) => (
-        <StatusCard
-          key={title}
-          bgColor={bgColor}
-          iconName={iconName}
-          title={title}
-          value={value}
-        />
-      ))}
-    </div>
-  );
-
-  const renderChat = () => (
-    <div className="my-10 py-8 px-10 bg-white rounded-[20px]">
-      <div className="flex items-center w-full">
-        <div className="flex-1">
-          <p className="text-black font-bold text-lg flex-1">Activities</p>
-          <button className="text-subTitle text-sm flex items-center gap-1 mt-1">
-            May - June 2021
-            <Image
-              alt="icon"
-              src="assets/icons/right-cap-icon.svg"
-              width={5}
-              height={5}
-              className="rotate-90"
-            />
-          </button>
-        </div>
-        <div className="flex items-center">
-          <div className="flex items-center gap-[10px] mr-8">
-            <div className="w-[10px] h-[10px] bg-[#E9A0A0] rounded-full" />
-            <p className="text-black text-sm">Guest</p>
-          </div>
-          <div className="flex items-center gap-[10px] mr-8">
-            <div className="w-[10px] h-[10px] bg-[#9BDD7C] rounded-full" />
-            <p className="text-black text-sm">User</p>
-          </div>
-        </div>
-      </div>
-      <LineChart />
-    </div>
-  );
-
-  const renderRightSideBottomPart = () => (
-    <div className="flex justify-between mb-10">
-      {renderPieChat()}
-      {renderTodaySchedule()}
     </div>
   );
 
   const renderRightSidePart = () => (
-    <div className="flex-1">
-      {renderRightSideHeader()}
-      {renderRightSideCard()}
-      {renderChat()}
-      {renderRightSideBottomPart()}
+    <div>
+      <p className="font-bold text-black text-4xl">Sign In</p>
+      <p className="text-black text-base mt-[0.3125rem] mb-[1.625rem] font-lato">
+        Sign in to your account
+      </p>
+      <div className="flex items-center gap-[1.5625rem]">
+        <Button
+          className="gap-[0.625rem] bg-white px-[1.1875rem] py-[0.4375rem] text-xs text-subTitle rounded-[0.625rem] flex-1"
+          onClick={signIn}
+          title="Sign in with Google"
+          imageIcon="google-logo.svg"
+        />
+        <Button
+          className="gap-[0.625rem] bg-white px-[1.1875rem] py-[0.4375rem] text-xs text-subTitle rounded-[0.625rem] flex-1"
+          title="Sign in with Apple"
+          imageIcon="apple-logo.svg"
+        />
+      </div>
+      {renderEmailAndPasswordIp()}
+      <p className="text-base text-subTitle text-center font-lato">
+        Don’t have an account?{" "}
+        <span className="text-linkText"> Register here</span>
+      </p>
     </div>
   );
 
+  useEffect(() => {
+    if (session?.user) handleNavigate();
+  }, [session]);
+
   return (
-    <main className="w-full p-10 flex bg-backgroundColor gap-[60px]">
-      <Navbar />
-      {renderRightSidePart()}
-    </main>
+    <div className="h-screen w-full flex">
+      <div className="flex items-center justify-center w-4/12 lg:w-[36.75rem] bg-black">
+        <p className="font-bold text-white text-7xl">Board.</p>
+      </div>
+      <div className="flex-1 flex items-center justify-center bg-backgroundColor">
+        {renderRightSidePart()}
+      </div>
+    </div>
   );
 }
+
+export default page;

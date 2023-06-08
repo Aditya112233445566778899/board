@@ -2,14 +2,12 @@ import cx from "classnames";
 import Image from "next/image";
 
 function Input({
-  onChange,
-  type,
   labelClassName,
   className,
   wrapperClassName,
-  placeholder,
   labelText,
   iconName,
+  ...restProps
 }) {
   return (
     <div>
@@ -21,13 +19,11 @@ function Input({
         )}
       >
         <input
-          placeholder={placeholder}
-          onChange={onChange}
-          type={type}
           className={cx(
             "placeholder:text-placeholderColor outline-none",
             className
           )}
+          {...restProps}
         />
         {iconName && (
           <Image

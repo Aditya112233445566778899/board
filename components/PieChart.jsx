@@ -34,7 +34,10 @@ function PieChart() {
   };
 
   return (
-    <div id="chart" className="w-full flex items-center">
+    <div
+      id="chart"
+      className="w-full flex items-center sm:justify-around lg:justify-between xl:justify-around"
+    >
       <ReactApexChart
         options={chatOptions.options}
         series={chatOptions.series}
