@@ -107,15 +107,23 @@ const LineChart = () => {
     };
   }, []);
 
-  return (
-    <Chart
-      options={chartData.options}
-      series={chartData.series}
-      type="line"
-      width={windowWidth - 500}
-      height="320"
-    />
-  );
+  if (typeof window !== "undefined" && window.innerHeight)
+    return (
+      <Chart
+        options={chartData.options}
+        series={chartData.series}
+        type="line"
+        width={
+          windowWidth < 770
+            ? windowWidth - 250
+            : windowWidth > 1190
+            ? windowWidth - 520
+            : windowWidth - 440
+        }
+        height={212}
+      />
+    );
+  else return null;
 };
 
 export default LineChart;
